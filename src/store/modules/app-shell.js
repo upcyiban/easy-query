@@ -178,15 +178,12 @@ export default {
                 },
 
                 setSelected({commit}, selected){
-                    console.log(selected)
                     commit(types.SET_SELECTED, selected)
                 },
                 setSelectorItems({commit}, items){
-                    console.warn(items)
                     commit(types.SET_SELECTOR_ITEMS, items)
                 },
                 setSelectDialogAction({commit},action){
-                    console.log(action)
                     commit(types.SET_SELECT_DIALOG_ACTION,action)
                 }
             },
@@ -201,7 +198,6 @@ export default {
                     state.selectorAction.items = items
                 },
                 [types.SET_SELECT_DIALOG_ACTION](state,action){
-                    console.log(action)
                     state.selectDialogAction.week = action.week
                     state.selectDialogAction.day = action.day
                     state.selectDialogAction.n = action.n

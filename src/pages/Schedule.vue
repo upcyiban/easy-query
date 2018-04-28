@@ -70,15 +70,15 @@ export default {
         
         this.activateBottomNav('schedule');
         this.showBottomNav();
-        if(!this.authed && !this.$route.query.vq){
+        if(!this.authed && !this.$route.query.verify_request){
             window.location = process.env.REDIRECT_URL
-        }else if(!this.authed && this.$route.query.vq){
-            this.toAuth(this.$route.query.vq).then((authed)=>{
-                console.log(authed)
+        }else if(!this.authed && this.$route.query.verify_request){
+            this.toAuth(this.$route.query.verify_request).then((authed)=>{
+                // console.log(authed)
                 if(authed){
                     this.fetchSchedule();
                 }else{
-                    console.log('auth failed')
+                    console.error('auth failed')
                 }
             })
         }

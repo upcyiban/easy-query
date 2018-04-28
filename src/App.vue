@@ -89,7 +89,7 @@ export default {
             this.setPageSwitching(true);
         },
         handleAfterEnter(el) {
-            console.log(this)
+            // console.log(this)
             this.setPageSwitching(false);
         },
         handleClickHeaderBack() {

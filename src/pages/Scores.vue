@@ -78,11 +78,11 @@ export default {
 
     this.activateBottomNav("scores");
     this.showBottomNav();
-    if (!this.authed && !this.$route.query.vq) {
+    if (!this.authed && !this.$route.query.verify_request) {
       window.location = process.env.REDIRECT_URL;
-    } else if (!this.authed && this.$route.query.vq) {
-      this.toAuth(this.$route.query.vq).then(authed => {
-        console.log(authed);
+    } else if (!this.authed && this.$route.query.verify_request) {
+      this.toAuth(this.$route.query.verify_request).then(authed => {
+        // console.log(authed);
         if (authed) {
           this.fetchScores().then(data => {
             let items = new Set();
@@ -91,12 +91,12 @@ export default {
             });
             items = Array.from(items);
             items = items.map(v => ({ text: v, value: v }));
-            console.log(items);
+            // console.log(items);
             this.setSelectorItems(items);
             this.setSelected(items[0].value);
           });
         } else {
-          console.log("auth failed");
+          console.error("auth failed");
         }
       });
     }
@@ -108,7 +108,7 @@ export default {
             });
             items = Array.from(items);
             items = items.map(v => ({ text: v, value: v }));
-            console.log(items);
+            // console.log(items);
             this.setSelectorItems(items);
             this.setSelected(items[0].value);
           });

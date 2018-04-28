@@ -85,7 +85,6 @@ let actions = {
                     }
                     data[i].sksj.day = data[i].SKSJ.slice(0, j + 2)
                 })
-                console.log(data)
                 commit(SET_FULL_SCHEDULE, data)
             })
             .catch(err => {
@@ -154,7 +153,6 @@ export default {
                             fetch(`${process.env.AUTH_URL}?verify_request=${vq}`,{credentials:'include'})
                             .then(res => res.json())
                             .then(data => {
-                                console.log(data)
                                 if (data.code === 1){
                                     commit(types.SET_IS_AUTHED,true)
                                     resolve(true)
@@ -232,12 +230,11 @@ export default {
                                 data[i].sksj.week = +data[i].SKSJ.slice(0, j + 2)
                                 data[i].color = classColor.get(data[i].KCMC)
                             })
-                            console.log(classColor)
                             commit(types.SET_FULL_SCHEDULE, data)
                             commit(types.SET_ACTIVE_WEEK)
                         })
                         .catch(err => {
-                            console.log('fetch schedule error')
+                            console.error('fetch schedule error')
                         })
                 },
                 setActiveWeek({ commit }, week) {
@@ -246,11 +243,9 @@ export default {
             },
             mutations: {
                 [types.SET_FULL_SCHEDULE](state, schedule) {
-                    console.log(schedule);
                     state.schedule = schedule;
                 },
                 [types.SET_ACTIVE_WEEK](state, week) {
-                    console.log('week:' + week)
                     state.table = []
                     let tmpTable = []
                     if (week == undefined) {
@@ -263,17 +258,16 @@ export default {
                             tmpTable.push(dc)
                         }
                     })
-                    tmpTable.map(v => { console.log(`${v.KCMC} : ${v.JSXM} : ${v.SKSJ} : ${v.SKZCMX}`) })
+                    // tmpTable.map(v => { console.log(`${v.KCMC} : ${v.JSXM} : ${v.SKSJ} : ${v.SKZCMX}`) })
                     let tmpTable1 = []
                     let tableWeek = []
-                    console.log(tmpTable)
                     for (let i = 0; i < 7; i++) {
                         tableWeek.push([])
                         for (let j = 0; j < 12; j++) {
                             let done = false;
                             tmpTable.map(v => {
                                 if (v.sksj.week == i + 1 && v.sksj.ct.includes(j + 1) && !done) {
-                                    console.log(v);
+                                    //console.log(v);
                                     tableWeek[i].push({ count: 1, class: v, color: v.color });
                                     done = true;
                                 }
@@ -283,7 +277,6 @@ export default {
                             }
                         }
                     }
-                    console.log(tableWeek)
                     tableWeek.map((vw, ix) => {
                         state.table.push([])
                         vw.map((v, i) => {
@@ -294,13 +287,12 @@ export default {
                             }
                         })
                     })
-                    state.table.map((v, i) => {
-                        console.log(i)
-                        v.map(v => {
-                            console.log(`${v.class.KCMC} : ${v.class.JSXM} : ${v.class.SKSJ}: ${v.count} : ${v.class.SKZCMX}`)
-                        })
-                    })
-                    console.log(state.table)
+                    // state.table.map((v, i) => {
+                    //     v.map(v => {
+                    //         console.log(`${v.class.KCMC} : ${v.class.JSXM} : ${v.class.SKSJ}: ${v.count} : ${v.class.SKZCMX}`)
+                    //     })
+                    // })
+                    // console.log(state.table)
                 }
             }
         },
@@ -353,8 +345,8 @@ export default {
                         }
                     })
                     state.semesterItems = (Array.from(semesterItems)).map(v=>({text:v,value:v}))
-                    console.log(state.semesterItems)
-                    console.log(state.scores)
+                    // console.log(state.semesterItems)
+                    // console.log(state.scores)
                 },
                 [types.SET_SCORES_ACTIVE_SEMESTER](state, semester){
                     if(semester==undefined){
@@ -363,9 +355,9 @@ export default {
                         state.semester = semester
                     }
                     state.scoresps = state.scores.get(state.semester)
-                    console.warn(state.scores)
-                    console.log(state.semester)
-                    console.warn(state.scoresps)
+                    // console.warn(state.scores)
+                    // console.log(state.semester)
+                    // console.warn(state.scoresps)
                 }
             }
         },
